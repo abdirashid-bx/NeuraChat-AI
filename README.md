@@ -20,8 +20,4 @@ NeuraChat is a sleek, AI-powered chat app built with React Native and Tailwind C
 
 Hi! I'm Abdirashiid, a passionate developer who enjoys building smart solutions using modern web and mobile tools. This project reflects my curiosity, growth, and love for creative coding.
 
-## Getting Started
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/yourusername/neurachat.git
+ 
