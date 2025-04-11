@@ -1,50 +1,27 @@
-# Welcome to your Expo app 👋
+# NeuraChat
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+NeuraChat is a sleek, AI-powered chat app built with React Native and Tailwind CSS. It simulates real-time conversations, offering a clean interface and quick responses — all designed with a focus on simplicity and user experience.
 
-## Get started
+## Features
 
-1. Install dependencies
+- Real-time chat UI
+- Smooth FlatList integration
+- Instant "Thinking..." feedback
+- Styled with Tailwind CSS
+- Easy to use and responsive layout
 
+## Tech Stack
+
+- React Native
+- Tailwind CSS
+- JavaScript
+
+## About the Developer
+
+Hi! I'm Abdirashiid, a passionate developer who enjoys building smart solutions using modern web and mobile tools. This project reflects my curiosity, growth, and love for creative coding.
+
+## Getting Started
+
+1. Clone the repo:
    ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+   git clone https://github.com/yourusername/neurachat.git
