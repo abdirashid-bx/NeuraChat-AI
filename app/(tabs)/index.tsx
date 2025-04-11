@@ -1,74 +1,105 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import Input from "@/components/Input";
+import { Response } from "@/response/api";
+import { Link } from "expo-router";
+import { useEffect, useRef, useState } from "react";
+import { FlatList, Text, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+interface Message {
+  id: number;
+  text: string;
+  role: 'user' | 'assistant';
+  dataload:boolean
+ 
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+export default function Index() {
+  const [data, setData] = useState<Message[]>([]);
+  const flatListRef = useRef<FlatList>(null);
+  const [loading,setLoading]=useState(true)
+  const idRef = useRef(0);
+  const handleadd2 = (text: string) => {
+    const newmsg: Message = {
+      id:++idRef.current,
+      text,
+      role: 'user',
+      dataload:false,
+    };
+    setData((data) => [...data, newmsg]);
+  };
+ 
+  const handleai = async (text: string) => {
+    const id = Date.now().toString();
+    const loadingId = ++idRef.current;
+ 
+    const newmsg: Message = {
+      id:loadingId,
+      text: "Thinking...",
+      role: 'assistant',
+      dataload: true,
+    };
+  
+    setData((prev) => [...prev, newmsg]);
+  
+    try {
+      const response = await Response(text);
+  
+      setData((prevData) =>
+        prevData.map((msg) =>
+          msg.id === loadingId && msg.role === 'assistant'
+            ? { ...msg, text: response, dataload: false }
+            : msg
+        )
+      );
+    } catch (error) {
+      console.log('error happened', error);
+    }
+  };
+  
+  useEffect(() => {
+    flatListRef.current?.scrollToEnd({ animated: true });
+  }, [data]);
+  
+
+  return (
+    <View className="bg-primary flex-1">
+      <FlatList
+      
+        ref={flatListRef}
+        data={data} 
+         keyExtractor={(item) => item.id}
+        contentContainerStyle={{ paddingBottom: 80 }}
+        ListEmptyComponent={
+          <View className="flex-1 justify-center items-center flex mt-96 ">
+            <Text className="text-white text-4xl">How can I help you today?</Text>
+          </View>
+        }
+
+        renderItem={({ item }) => (
+          <View className="flex w-full mb-8">
+            
+            {item.role === 'user'  && (
+              <Text className="text-white bg-user p-4 rounded-xl self-end max-w-[90%] text-right mr-5 mt-4">
+                {item.text}
+              </Text>
+            )}
+
+          {item.dataload && (
+  <Text className="text-white text-left right-0 ml-5 mb-12">
+    Thinking...
+  </Text>
+)}
+           
+            {item.role === 'assistant' && !item.dataload && (
+              <Text className="text-white text-left right-0 ml-5 mb-12">
+                {item.text}
+              </Text>
+            )}
+          </View>
+        )}
+      />
+
+      <Input onsend={handleadd2} onai={handleai} />
+    </View>
+  );
+}

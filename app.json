@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "test",
-    "slug": "test",
+    "name": "NeuraChat",
+    "slug": "NeuraChat",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/NeuraChat1.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,21 +13,22 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/NeuraChat1.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.abdirashiidbx.NeuraChat"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/NeuraChat1.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/NeuraChat1.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
@@ -36,6 +37,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ed7d34cb-09cd-4ea2-a231-cce7541f82e7"
+      }
     }
   }
 }

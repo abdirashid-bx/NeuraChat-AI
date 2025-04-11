@@ -1,45 +1,67 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { Stack } from "expo-router";
+import '../global.css'
+import { Drawer } from 'expo-router/drawer';
+import { Image } from "react-native";
+ 
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default function RootLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
+    <Drawer
+    
+    screenOptions={{
+      drawerActiveBackgroundColor:"#B0B0B0",
+     drawerActiveTintColor:"#FFFFFF",
+     drawerInactiveTintColor:"#fff",
+     drawerContentStyle: {
+      backgroundColor: "#121212", 
+      height:30
+      
+      
+    },
+    drawerLabelStyle:{
+      fontSize:17,
+    
+    }
+
+    }}
+    >
+      <Drawer.Screen
+      name="index"
+      
+      
+     options={{
+      title:"NeuraChat",
+      headerTintColor:"#fff",
+      headerStyle:{
+        backgroundColor:'#030014',
+        borderBottomWidth: 0,  
+        elevation: 0,  
+        shadowOpacity: 0, 
+      
+      },
+      headerTitle:'NeuraChat'
+   
+     
+     }}
       />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
+       <Drawer.Screen
+      name="aboutd"
+      
+     options={{
+      title:"aboutdeveloper",
+      headerTintColor:'#fff',
+      headerStyle:{
+        backgroundColor:'#030014',
+        borderBottomWidth:0,
+        elevation:0,
+        shadowOpacity:0,
+
+      }
+     
+     }}
       />
-    </Tabs>
-  );
+    </Drawer>
+  )
+ 
+  ;
 }
